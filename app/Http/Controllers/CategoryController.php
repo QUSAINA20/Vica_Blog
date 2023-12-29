@@ -15,11 +15,15 @@ class CategoryController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Category::class);
+
         return view('categories.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Category::class);
+
         // dd($request);
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
