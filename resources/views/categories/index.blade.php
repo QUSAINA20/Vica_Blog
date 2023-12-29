@@ -6,8 +6,7 @@
             <div class="col-md-12">
                 <h1>Categories</h1>
 
-                @if (auth()->check() &&
-                        auth()->user()->can('delete', $categories->first()))
+                @if (auth()->user()->is_admin)
                     <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">Create Category</a>
                 @endif
                 <table class="table">

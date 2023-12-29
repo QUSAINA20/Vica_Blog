@@ -5,8 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Tags</h1>
-                @if (auth()->check() &&
-                        auth()->user()->can('create', $tags->first()))
+                @if (auth()->user()->is_admin)
                     <a href="{{ route('tags.create') }}" class="btn btn-primary mb-3">Create Tag</a>
                 @endif
                 <table class="table">
