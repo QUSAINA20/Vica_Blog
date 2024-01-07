@@ -129,7 +129,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        dd($request);
+        // dd($request);
         $this->authorize('update', $post);
 
         $validatedData = $request->validate([
