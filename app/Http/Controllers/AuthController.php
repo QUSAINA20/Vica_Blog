@@ -52,7 +52,7 @@ class AuthController extends Controller
 
         $user = User::create($validatedData);
 
-        Auth::login($user);
+
 
         return redirect('/'); // Redirect to home or intended page
     }

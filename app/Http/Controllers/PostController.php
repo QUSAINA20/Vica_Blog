@@ -16,7 +16,7 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        return view('posts.index', compact('posts'));
+        return view('dashboard.posts.index', compact('posts'));
     }
 
     /**
@@ -34,7 +34,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request);
         // Validate the request data
         $validatedData = $request->validate([
             'title' => 'required|max:255',
@@ -128,5 +128,37 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
+    }
+
+    public function trash()
+    {
+
+        $trashedPosts = Post::onlyTrashed()->get();
+
+        return view('dashboard.posts.trash', compact('trashedPosts'));
+    }
+
+    public function forceDelete($id)
+    {
+        $post = Post::withTrashed()->find($id);
+
+        if ($post) {
+            $post->forceDelete();
+            return redirect()->route('posts.index')->with('success', 'Post permanently deleted successfully.');
+        }
+
+        return redirect()->route('posts.index')->with('error', 'Post not found.');
+    }
+
+    public function restore($id)
+    {
+        $post = post::withTrashed()->find($id);
+
+        if ($post) {
+            $post->restore();
+            return redirect()->route('posts.index')->with('success', 'Post restored successfully.');
+        }
+
+        return redirect()->route('posts.index')->with('error', 'Post not found.');
     }
 }
