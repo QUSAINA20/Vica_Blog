@@ -15,14 +15,14 @@ class TagController extends Controller
 
     public function create()
     {
-        $this->authorize('create', Tag::class);
+
 
         return view('tags.create');
     }
 
     public function store(Request $request)
     {
-        $this->authorize('create', Tag::class);
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
 
@@ -45,7 +45,7 @@ class TagController extends Controller
 
     public function update(Request $request, Tag $tag)
     {
-        $this->authorize('update', Tag::class);
+
         $request->validate([
             'title' => 'required|string|max:255',
         ]);
@@ -60,7 +60,7 @@ class TagController extends Controller
 
     public function destroy(Tag $tag)
     {
-        $this->authorize('delete', Tag::class);
+
         $tag->delete();
         return redirect()->route('tags.index')->with('success', 'tag deleted successfully!');
     }
